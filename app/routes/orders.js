@@ -1,5 +1,5 @@
 import express from "express";
-import { fulfilOrder } from '../app/controllers/RampOrderController.js';
+import { fulfilOrder } from '../controllers/RampOrderController.js';
 
 const router = express.Router();
 
