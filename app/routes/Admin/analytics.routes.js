@@ -1,5 +1,5 @@
 import express from 'express';
-import { getTopOrders } from '../controllers/RampAdminAnalyticsController.js';
+import { getTopOrders } from '../../controllers/Admin/analytics.controller.js';
 
 const router = express.Router();
 
