@@ -6,7 +6,7 @@ import("dotenv").config();
 
 /* Connecting to the database before each test. */
 beforeEach(async () => {
-    await mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect(process.env.MONGO;
 });
 
 /* Closing database connection after each test. */

@@ -15,6 +15,10 @@ const RampOrderSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    amountInWei:{
+        type: Number,
+        required: true
+    },
     currency: {
         type: String,
         required: true

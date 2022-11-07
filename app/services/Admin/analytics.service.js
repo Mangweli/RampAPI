@@ -1,28 +1,25 @@
 import RampOrder from "../../models/order.model.js"
 
-export const getTopAddressOrders = async ($from, $to) => {
+export const getTopAddressOrders = async (from, to) => {
     const topOrders = await RampOrder.aggregate([
-        // {
-        //     $match: {
-        //         createdAt: { $gte: new Date("2022-11-06"), $lt: new Date("2022-11-07") }
-        //     }
-        // },
+        {
+            $match: {
+                createdAt: { $gte: from, $lt: to }
+            }
+        },
         {
             $group: {
                 _id: "$userWalletAddress",
                 address: { $first: "$userWalletAddress" },
                 currency: { $last: "$currency" },
-                totalTrx: { $sum: 1 }, totalAmount: { $sum: "$amount" }
+                totalTrx: { $sum: 1 }, totalAmountInWei: { $sum: "$amountInWei" }
             }
         },
         {
-            $sort: { totalRecords: -1 }
-        }
-        // { $limit: 1 }
+            $sort: { totalTrx: -1 }
+        },
+        { $limit: 1 }
     ]);
 
     return topOrders;
 }
-
-// {$group : {_id:"$position", count:{$sum:1}}},
-//     {$sort: {count:-1}} 
