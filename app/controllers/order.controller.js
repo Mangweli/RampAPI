@@ -1,13 +1,16 @@
 'use strict'
 
+import moment from "moment";
 import { setLogs } from '../../utils/functions.util.js';
+import cache from "../../utils/cache.utils.js";
 import logs from '../models/log.model.js';
 import { sendCrypto, convertToWei } from '../services/crypto.service.js';
 import { setNewOrder } from '../services/orders.service.js';
 
 export const fulfilOrder = async (req, res, next) => {
    
-    const privateKey = process.env.PRIVATE_KEY;
+    const privateKey  = process.env.PRIVATE_KEY;
+    const topOrderKey = moment().format('Y-M-D');
     const { walletAddress, cryptoCurrencyName } = req.body;
 
     try {
@@ -28,6 +31,10 @@ export const fulfilOrder = async (req, res, next) => {
                 success: false,
                 message: 'Unable to process your request please try again later'
             });
+        }
+        //Clear Cache if any
+        if(cache.has(topOrderKey)) {
+            cache.del(topOrderKey);
         }
 
         const orderDetails = {

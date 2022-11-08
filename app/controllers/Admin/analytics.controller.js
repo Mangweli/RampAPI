@@ -1,11 +1,8 @@
 'use strict'
 
-import NodeCache from "node-cache";
 import moment from "moment";
 import { getTopAddressOrders } from "../../services/Admin/analytics.service.js";
-
-//Set cache expiry time
-const cache = new NodeCache({ stdTTL: 21600 });
+import cache from "../../../utils/cache.utils.js";
 
 export const getTopOrders = async (req, res, next) => {
 
@@ -16,14 +13,12 @@ export const getTopOrders = async (req, res, next) => {
 
     // const fromDate = new Date(new Date().setDate(toDate.getDate() - 31));
     if (cache.has(topOrderKey)) {
-        console.log("Inside cache",  cache.get(topOrderKey));
         return res.status(200).json({
                                 success: true,
                                 message: `Order data as between ${fromDate} to ${toDate}`,
                                 data   : cache.get(topOrderKey)
                             });
     }
-
     const topAddressOrders =  await getTopAddressOrders(fromDate, toDate);
     cache.set(topOrderKey, topAddressOrders);
 
