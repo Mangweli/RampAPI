@@ -16,4 +16,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD [ "node", "bin/www.js" ]
+CMD bash -c "npm start"

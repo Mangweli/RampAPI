@@ -1,3 +1,5 @@
+'use strict'
+
 import { ValidationError } from 'express-validation'
 
 const errorHandler = (err, req, res, next) => {

@@ -1,3 +1,5 @@
+'use strict'
+
 import * as dotenv from 'dotenv';
 dotenv.config();
 import Web3 from 'web3';

@@ -1,28 +1,63 @@
 import mongoose from 'mongoose';
-import request from 'supertest';
-import app from './index.js';
+import orderModel from '../app/models/order.model';
 
-import("dotenv").config();
+const orderDetails = {
+    transactionHash: 'transactionHash',
+    userWalletAddress: 'userWalletAddress',
+    senderWalletAddress: 'senderWalletAddress',
+    amount: 2,
+    amountInWei: 20000,
+    currency: 'ether',
+    status: true
+}
 
-/* Connecting to the database before each test. */
-beforeEach(async () => {
-    await mongoose.connect(process.env.MONGO;
-});
+describe('Add Fulfil order record', () => {
 
-/* Closing database connection after each test. */
-afterEach(async () => {
-    await mongoose.connection.close();
-});
-
-describe("POST /fulfill-order", () => {
-    it("should send crypto unit from one address to another", async () => {
-        const res = await request(app).post("/fulfill-order").send();
-            // {
-            // cryptoUnitCount: 1,
-            // cryptoCurrencyName: "wei",
-            // walletAddress: "0x66fE709fdf6879fEEb0345c56432F6E1Bd26aAE1",
-        // });
-        expect(res.statusCode).toBe(200);
-        expect(res.body.success).toBe("true");
+    // Connect to the MongoDB Memory Server
+    beforeAll(async () => {
+        await mongoose.connect(global.__MONGO_URI__, { useNewUrlParser: true }, (err) => {
+            if (err) {
+                console.error(err);
+            }
+        });
     });
-});
+    afterAll(async () => {
+        await mongoose.disconnect();
+        mongoose.connection.close();
+      
+      });
+
+    it('create & save fulfil order successfully', async () => {
+        const fulfilOrder = new orderModel(orderDetails);
+        const savedfulfilOrder = await fulfilOrder.save();
+
+        expect(savedfulfilOrder._id).toBeDefined();
+        expect(savedfulfilOrder.transactionHash).toBe(orderDetails.transactionHash);
+        expect(savedfulfilOrder.userWalletAddress).toBe(orderDetails.userWalletAddress);
+        expect(savedfulfilOrder.amount).toBe(orderDetails.amount);
+        expect(savedfulfilOrder.currency).toBe(orderDetails.currency);
+        expect(savedfulfilOrder.status).toBe(orderDetails.status);
+    });
+
+    // Testing Schema
+    it('Add fulfil order details successfully with undefined schema fields as undefined', async () => {
+        const orderWithUndefinedField = new orderModel({ ...orderDetails, gasPrice: 'gasPrice' });
+        const savedOrderWithUndefinedField = await orderWithUndefinedField.save();
+        expect(savedOrderWithUndefinedField._id).toBeDefined();
+        expect(savedOrderWithUndefinedField.gasPrice).toBeUndefined();
+    });
+
+    // Test Validation!!!
+    it('create order without required field should failed', async () => {
+        const orderWithoutRequiredField = new orderModel({ amount: '2' });
+        let err;
+        try {
+            const savedOrderWithoutRequiredField = await orderWithoutRequiredField.save();
+            error = savedOrderWithoutRequiredField;
+        } catch (error) {
+            err = error
+        }
+        expect(err).toBeInstanceOf(mongoose.Error.ValidationError)
+        expect(err.errors.transactionHash).toBeDefined();
+    });
+})

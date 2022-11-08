@@ -3,6 +3,10 @@
 import  mongoose from 'mongoose';
 
 const RampOrderSchema = mongoose.Schema({
+    transactionHash: {
+        type: String,
+        required: true
+    },
     userWalletAddress: {
         type: String,
         required: true

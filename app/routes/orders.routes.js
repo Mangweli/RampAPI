@@ -1,3 +1,5 @@
+'use strict'
+
 import express from "express";
 import { validate } from 'express-validation';
 import fulfillorderValidations from "../../utils/validations/fulfillorder.validations.js";

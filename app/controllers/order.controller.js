@@ -1,3 +1,5 @@
+'use strict'
+
 import { setLogs } from '../../utils/functions.util.js';
 import logs from '../models/log.model.js';
 import { sendCrypto, convertToWei } from '../services/crypto.service.js';

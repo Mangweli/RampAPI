@@ -1,3 +1,5 @@
+'use strict'
+
 import RampOrder from "../../models/order.model.js"
 
 export const getTopAddressOrders = async (from, to) => {

@@ -1,3 +1,5 @@
+'use strict'
+
 import { getTopAddressOrders } from "../../services/Admin/analytics.service.js";
 
 export const getTopOrders = async(req, res, next) => {
