@@ -1,4 +1,10 @@
 <h1 align="center">Welcome to Ramp API 👋</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-1-blue.svg?cacheSeconds=2592000" />
+  <a href="https://documenter.getpostman.com/view/1825277/UVsHUoN4" target="_blank">
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
+  </a>
+</p>
 
 <p>This api is also hosted on http://3.83.87.196/</p>
 <p>API Documentation is located at https://documenter.getpostman.com/view/1825277/UVsHUoN4</p>

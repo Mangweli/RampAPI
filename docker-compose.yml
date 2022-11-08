@@ -15,6 +15,6 @@ services:
     env_file:
       - .env
     ports:
-      - "8035:3000"
+      - ${PORT}:3000
     links:
       - mongo
