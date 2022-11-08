@@ -6,7 +6,7 @@
   </a>
 </p>
 
-<p>This api is also hosted on http://3.83.87.196/</p>
+<p>This api is also hosted on https://ramp-api.onrender.com/</p>
 <p>API Documentation is located at https://documenter.getpostman.com/view/1825277/UVsHUoN4</p>
 
 ## DEPLOYING
