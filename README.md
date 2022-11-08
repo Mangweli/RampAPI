@@ -12,7 +12,7 @@
 ## DEPLOYING
 ### 🏠 [Requirements](Requirements)
 <ul>
-	<li>php 16.18 and above</li>
+	<li>node 16.18 and above</li>
 	<li>NPM or Yarn</li>
 	<li>MongoDB database </li>
 </ul>
